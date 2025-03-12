@@ -1,3 +1,6 @@
+/* =====================
+   Global Styles
+   ===================== */
 * {
   box-sizing: border-box;
 }
@@ -9,6 +12,9 @@ body {
   padding: 0;
 }
 
+/* =====================
+   Layout & Containers
+   ===================== */
 .centred-column {
   display: flex;
   flex-direction: column;
@@ -25,6 +31,9 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* =====================
+   Headings & Text
+   ===================== */
 h1 {
   text-align: center;
 }
@@ -34,6 +43,13 @@ label {
   margin-top: 10px;
 }
 
+#total-expenses {
+  font-weight: bold;
+}
+
+/* =====================
+   Form & Inputs
+   ===================== */
 input[type='text'],
 input[type='number'],
 input[type='date'] {
@@ -56,20 +72,9 @@ button:hover {
   background-color: #9c863c;
 }
 
-#expense-list {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-#expense-list li {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-#total-expenses {
-  font-weight: bold;
-}
-
+/* =====================
+   Modal Styles
+   ===================== */
 .modal-background {
   width: 100vw;
   height: 100vh;
@@ -99,6 +104,9 @@ button:hover {
   display: block;
 }
 
+/* =====================
+   Logo Styles
+   ===================== */
 .logo {
   position: relative;
   height: 77px;
@@ -129,11 +137,13 @@ button:hover {
   background-color: #9c863c85;
 }
 
+/* =====================
+   Sorting Buttons
+   ===================== */
 .sorting-btn {
   border-radius: 10px;
   padding: 6px 16px;
   margin: 0 5px 0 0;
-
   background-color: white;
   border-color: #cfb42f;
   color: #3e3434;
@@ -145,13 +155,15 @@ button:hover {
   color: white;
 }
 
+/* =====================
+   Sorting & Filters
+   ===================== */
 .sorting-container {
   width: 80%;
   max-width: 800px;
   margin: 0px auto;
 }
 
-/* Style for the select box */
 .select-container {
   position: relative;
   width: 100%;
@@ -159,9 +171,9 @@ button:hover {
 }
 
 select {
-  -webkit-appearance: none; /* Remove default styling in webkit browsers */
-  -moz-appearance: none; /* Remove default styling in Firefox */
-  appearance: none; /* Remove default styling in modern browsers */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   padding: 4px 8px;
   font-size: 16px;
   color: #333;
@@ -178,14 +190,8 @@ select:focus {
   background-color: #eaf3ff;
 }
 
-select option {
-  padding: 10px;
-  background-color: white;
-}
-
-/* Adding custom arrow for select box */
 .select-container::after {
-  content: '\27BD'; /* Down arrow */
+  content: '\27BD';
   font-size: 18px;
   color: #aaa;
   position: absolute;
@@ -195,13 +201,11 @@ select option {
   pointer-events: none;
 }
 
-/* Style for the container */
 .checkbox-container {
   display: flex;
   align-items: center;
 }
 
-/* Style for the label */
 .checkbox-label {
   font-size: 16px;
   color: #333;
@@ -212,7 +216,6 @@ select option {
   transition: color 0.3s ease;
 }
 
-/* Style for the checkbox */
 .checkbox-input {
   width: 20px;
   height: 20px;
@@ -229,7 +232,9 @@ select option {
   margin-top: 10px;
 }
 
-/* Style for each expense item */
+/* =====================
+   Expense Item Styles
+   ===================== */
 .expense-item {
   display: flex;
   justify-content: space-between;
@@ -243,20 +248,17 @@ select option {
   transition: all 0.3s ease;
 }
 
-/* Styling for the expense details */
 .expense-details {
   display: flex;
   flex-direction: column;
 }
 
-/* Style for date */
 .expense-date {
   font-style: italic;
   color: #555;
   margin-bottom: 5px;
 }
 
-/* Style for the title */
 .expense-title {
   font-size: 18px;
   font-weight: bold;
@@ -264,7 +266,6 @@ select option {
   margin: 0 0 5px 15px;
 }
 
-/* Style for category */
 .expense-category {
   font-size: 14px;
   color: #777;
@@ -273,20 +274,20 @@ select option {
   margin: 0 0 5px 15px;
 }
 
-/* Style for the amount */
 .expense-amount {
   font-size: 16px;
   font-weight: bold;
   color: #3e3434;
 }
 
-/* Styling for the action buttons */
+/* =====================
+   Expense Actions (Buttons)
+   ===================== */
 .expense-actions {
   display: flex;
   flex-direction: column;
 }
 
-/* Style for delete button */
 .btn-delete {
   background-color: #a11a1a;
   border: none;
@@ -301,7 +302,6 @@ select option {
   background-color: #e63946;
 }
 
-/* Style for edit button */
 .btn-edit {
   background-color: #3e3434;
   border: none;

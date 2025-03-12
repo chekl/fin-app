@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,13 @@
     <link rel="stylesheet" href="./normalize.css">
     <link rel="stylesheet" href="./style.css">
 </head>
+
 <body class="centred-column">
 
     <div class="logo">
         <h1 class="logo-text">finОблік</h1>
         <button id="logo-btn" class="logo-btn">+</button>
-    </div>    
+    </div>
 
     <section id="add-modal" class="modal-background modal-close">
         <div class="modal">
@@ -45,42 +47,43 @@
     </section>
 
     <section class="container" id="search-container">
-            <input type="text" id="search" placeholder="Пошук за назвою...">
-<div class="filters">
+        <input type="text" id="search" placeholder="Пошук за назвою...">
+        <div class="filters">
             <div class="select-container">
-            <select id="category-filter">
-                <option>Всі категорії</option>
-                <option>Заощадження</option>
-                <option>Подарунки</option>
-                <option>Комунальні послуги</option>
-                <option>Транспорт</option>
-                <option>Житло</option>
-                <option>Харчові продукти</option>
-                <option>Здоров`я</option>
-                <option>Особисті витрати</option>
-            </select>
-</div>
+                <select id="category-filter">
+                    <option>Всі категорії</option>
+                    <option>Заощадження</option>
+                    <option>Подарунки</option>
+                    <option>Комунальні послуги</option>
+                    <option>Транспорт</option>
+                    <option>Житло</option>
+                    <option>Харчові продукти</option>
+                    <option>Здоров`я</option>
+                    <option>Особисті витрати</option>
+                </select>
+            </div>
 
-<div class="checkbox-container">
-    <input id="date-filter" type="checkbox" class="checkbox-input"/>
-    <label for="date-filter" class="checkbox-label">Лише сьогоднішні</label>
-    
-</div>
+            <div class="checkbox-container">
+                <input id="date-filter" type="checkbox" class="checkbox-input" />
+                <label for="date-filter" class="checkbox-label">Лише сьогоднішні</label>
 
-</div>
+            </div>
+
+        </div>
     </section>
-  <div class="sorting-container">
-    <button id="sort-new" class="sorting-btn">Від нових</button>
-    <button id="sort-old" class="sorting-btn">Від старих</button>
-    <button id="sort-expensive" class="sorting-btn">Від дорогих</button> 
-  </div>
-    
+    <div class="sorting-container">
+        <button id="sort-new" class="sorting-btn">Від нових</button>
+        <button id="sort-old" class="sorting-btn">Від старих</button>
+        <button id="sort-expensive" class="sorting-btn">Від дорогих</button>
+    </div>
+
 
     <section class="container">
         <p id="total-expenses">Загальна сума витрат: 0</p>
-        <ul id="expense-list"></ul>      
+        <ul id="expense-list"></ul>
     </section>
-    
+
     <script src="./script.js"></script>
 </body>
+
 </html>

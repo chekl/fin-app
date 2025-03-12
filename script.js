@@ -2,7 +2,6 @@ let isAddModal = true;
 let indexEdit = 0;
 let selectedSortBy = 'newFirst';
 
-// Клас для моделювання витрат
 class Expense {
   constructor(amount, category, date, title) {
     this.amount = amount;
@@ -12,7 +11,6 @@ class Expense {
   }
 }
 
-// Клас для управління витратами
 class ExpenseManager {
   constructor() {
     this.expenses = this.loadExpenses();
@@ -46,22 +44,16 @@ class ExpenseManager {
   }
 
   sortExpenses(sortBy, expenses) {
-    switch (sortBy) {
-      case 'newFirst':
-        return expenses.sort((a, b) => new Date(b.date) - new Date(a.date));
-      case 'oldFirst':
-        return expenses.sort((a, b) => new Date(a.date) - new Date(b.date));
-      case 'expensiveFirst':
-        return expenses.sort((a, b) => b.amount - a.amount);
-      default:
-        return expenses;
-    }
+    const sortFunctions = {
+      newFirst: (a, b) => new Date(b.date) - new Date(a.date),
+      oldFirst: (a, b) => new Date(a.date) - new Date(b.date),
+      expensiveFirst: (a, b) => b.amount - a.amount,
+    };
+    return expenses.sort(sortFunctions[sortBy] || sortFunctions.newFirst);
   }
 
   filterExpenses(queryTitle, isOnlyTodays, category) {
-    const today = new Date().toISOString().split('T')[0]; // Get today's date in 'YYYY-MM-DD' format
-
-    // First, filter by queryTitle, category, and date
+    const today = new Date().toISOString().split('T')[0];
     const filteredExpenses = this.expenses.filter((expense) => {
       const matchesTitle = expense.title
         .toLowerCase()
@@ -69,11 +61,9 @@ class ExpenseManager {
       const matchesCategory =
         category === 'Всі категорії' || expense.category === category;
       const matchesDate = isOnlyTodays ? expense.date === today : true;
-
       return matchesTitle && matchesCategory && matchesDate;
     });
 
-    // Then, sort the filtered expenses
     return this.sortExpenses(selectedSortBy, filteredExpenses);
   }
 
@@ -83,64 +73,54 @@ class ExpenseManager {
 
   renderExpenses(expenses) {
     const expenseList = document.getElementById('expense-list');
-    expenseList.innerHTML = ''; // Clear the current list of expenses
-
+    expenseList.innerHTML = '';
     expenses.forEach((expense, index) => {
-      // Create a list item (li) with the class 'expense-item'
       const li = document.createElement('li');
       li.classList.add('expense-item');
-
-      // Add the details of the expense
       li.innerHTML = `
-      <div class="expense-details">
-        <i class="expense-date">${expense.date}</i>
-        <h4 class="expense-title">${expense.title}</h4>
-        <p class="expense-category">${expense.category}</p>
-        <b class="expense-amount">${expense.amount} грн</b>
-      </div>
-      <div class="expense-actions">
-        <button class="btn-delete">✖</button>
-        <button class="btn-edit">✎</button>
-      </div>
-    `;
+        <div class="expense-details">
+          <i class="expense-date">${expense.date}</i>
+          <h4 class="expense-title">${expense.title}</h4>
+          <p class="expense-category">${expense.category}</p>
+          <b class="expense-amount">${expense.amount} грн</b>
+        </div>
+        <div class="expense-actions">
+          <button class="btn-delete">✖</button>
+          <button class="btn-edit">✎</button>
+        </div>
+      `;
 
-      // Get the delete and edit buttons
-      const deleteButton = li.querySelector('.btn-delete');
-      const editButton = li.querySelector('.btn-edit');
+      li.querySelector('.btn-delete').addEventListener('click', () =>
+        this.deleteExpense(index)
+      );
+      li.querySelector('.btn-edit').addEventListener('click', () =>
+        this.editExpenseModal(expense, index)
+      );
 
-      // Add event listener for delete button
-      deleteButton.addEventListener('click', () => this.deleteExpense(index));
-
-      // Add event listener for edit button
-      editButton.addEventListener('click', () => {
-        document.getElementById('add-modal').classList.remove('modal-close');
-        document.getElementById('add-modal').classList.add('modal-open');
-
-        indexEdit = index;
-        isAddModal = false;
-
-        document.getElementById('amount').value = expense.amount;
-        document.getElementById('category').value = expense.category;
-        document.getElementById('date').value = expense.date;
-        document.getElementById('title').value = expense.title;
-
-        document.getElementById('form-submit').textContent = 'Оновити витрату';
-      });
-
-      // Append the list item to the expense list
       expenseList.appendChild(li);
     });
 
-    // Update the total expenses text
-    const totalExpensesElement = document.getElementById('total-expenses');
-    totalExpensesElement.textContent = `Загальна сума витрат: ${this.getTotalExpenses()} грн`;
+    document.getElementById(
+      'total-expenses'
+    ).textContent = `Загальна сума витрат: ${this.getTotalExpenses()} грн`;
+  }
+
+  editExpenseModal(expense, index) {
+    document.getElementById('add-modal').classList.remove('modal-close');
+    document.getElementById('add-modal').classList.add('modal-open');
+    indexEdit = index;
+    isAddModal = false;
+
+    document.getElementById('amount').value = expense.amount;
+    document.getElementById('category').value = expense.category;
+    document.getElementById('date').value = expense.date;
+    document.getElementById('title').value = expense.title;
+    document.getElementById('form-submit').textContent = 'Оновити витрату';
   }
 }
 
-// Ініціалізація ExpenseManager
 const expenseManager = new ExpenseManager();
 
-// Форма для додавання витрат
 const expenseForm = document.getElementById('expense-form');
 expenseForm.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -163,7 +143,8 @@ expenseForm.addEventListener('submit', function (event) {
     expenseManager.editExpense(expense, indexEdit);
     document.getElementById('add-modal').classList.remove('modal-open');
     document.getElementById('add-modal').classList.add('modal-close');
-  } // Очищення форми
+  }
+
   expenseForm.reset();
 });
 
@@ -171,19 +152,14 @@ const expenseFormCancelBtn = document.getElementById('form-cancel');
 expenseFormCancelBtn.addEventListener('click', function () {
   document.getElementById('add-modal').classList.remove('modal-open');
   document.getElementById('add-modal').classList.add('modal-close');
-
-  // Очищення форми
   expenseForm.reset();
 });
 
-// Pошук витрат
 const searchInput = document.getElementById('search');
-searchInput.addEventListener('input', updateExpenses);
-
 const categoryFilter = document.getElementById('category-filter');
-categoryFilter.addEventListener('change', updateExpenses);
-
 const dateFilter = document.getElementById('date-filter');
+searchInput.addEventListener('input', updateExpenses);
+categoryFilter.addEventListener('change', updateExpenses);
 dateFilter.addEventListener('change', updateExpenses);
 
 function updateExpenses() {
@@ -191,58 +167,41 @@ function updateExpenses() {
   const isOnlyTodays = dateFilter.checked;
   const category = categoryFilter.value;
 
-  // Get the filtered and sorted expenses
   const filteredAndSortedExpenses = expenseManager.filterExpenses(
     queryTitle,
     isOnlyTodays,
     category
   );
-
-  // Update the DOM with filtered and sorted expenses
   expenseManager.renderExpenses(filteredAndSortedExpenses);
 }
 
-// Adding event listeners for sorting buttons
-document.getElementById('sort-new').addEventListener('click', function () {
-  selectedSortBy = 'newFirst';
-  updateSortingButtons();
-  updateExpenses(); // Re-render with the new sort order
-});
+const sortingButtons = {
+  'sort-new': 'newFirst',
+  'sort-old': 'oldFirst',
+  'sort-expensive': 'expensiveFirst',
+};
 
-document.getElementById('sort-old').addEventListener('click', function () {
-  selectedSortBy = 'oldFirst';
-  updateSortingButtons();
-  updateExpenses(); // Re-render with the new sort order
-});
-
-document
-  .getElementById('sort-expensive')
-  .addEventListener('click', function () {
-    selectedSortBy = 'expensiveFirst';
+Object.entries(sortingButtons).forEach(([buttonId, sortType]) => {
+  document.getElementById(buttonId).addEventListener('click', () => {
+    selectedSortBy = sortType;
     updateSortingButtons();
-    updateExpenses(); // Re-render with the new sort order
+    updateExpenses();
   });
+});
 
-// Helper function to update the visual state of sorting buttons
 function updateSortingButtons() {
-  document
-    .getElementById('sort-new')
-    .classList.toggle('sorting-btn-active', selectedSortBy === 'newFirst');
-  document
-    .getElementById('sort-old')
-    .classList.toggle('sorting-btn-active', selectedSortBy === 'oldFirst');
-  document
-    .getElementById('sort-expensive')
-    .classList.toggle(
-      'sorting-btn-active',
-      selectedSortBy === 'expensiveFirst'
-    );
+  Object.keys(sortingButtons).forEach((buttonId) => {
+    document
+      .getElementById(buttonId)
+      .classList.toggle(
+        'sorting-btn-active',
+        sortingButtons[buttonId] === selectedSortBy
+      );
+  });
 }
 
-// Display expenses when the page loads
-window.addEventListener('load', () => updateExpenses()); // Calls updateExpenses on page load to render filtered and sorted expenses
+window.addEventListener('load', updateExpenses);
 
-// Add Expense Button
 const addExpenseBtn = document.getElementById('logo-btn');
 addExpenseBtn.addEventListener('click', () => {
   isAddModal = true;
