@@ -1,0 +1,317 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: rgb(251, 248, 153);
+  margin: 0;
+  padding: 0;
+}
+
+.centred-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container {
+  width: 80%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input[type='text'],
+input[type='number'],
+input[type='date'] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #cfb42f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #9c863c;
+}
+
+#expense-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#expense-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+#total-expenses {
+  font-weight: bold;
+}
+
+.modal-background {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(251, 248, 153);
+  z-index: 100;
+  position: fixed;
+  top: 0;
+}
+
+.modal {
+  width: 80%;
+  height: fit-content;
+  background-color: white;
+  position: fixed;
+  top: 20%;
+  right: 10%;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-close {
+  display: none;
+}
+
+.modal-open {
+  display: block;
+}
+
+.logo {
+  position: relative;
+  height: 77px;
+  width: 130px;
+  margin: 0 auto;
+}
+
+.logo-text {
+  width: min-content;
+  right: 50%;
+  position: absolute;
+  transform: translateX(50%);
+  color: #3e3434;
+}
+
+.logo-btn {
+  right: 7%;
+  position: absolute;
+  top: 27px;
+  transform: translateX(84%);
+  background-color: transparent;
+  color: #a11a1a;
+  font-size: 35px;
+  padding: 0 12px;
+}
+
+.logo-btn:hover {
+  background-color: #9c863c85;
+}
+
+.sorting-btn {
+  border-radius: 10px;
+  padding: 6px 16px;
+  margin: 0 5px 0 0;
+
+  background-color: white;
+  border-color: #cfb42f;
+  color: #3e3434;
+}
+
+.sorting-btn-active {
+  background-color: #cfb42f;
+  border-color: white;
+  color: white;
+}
+
+.sorting-container {
+  width: 80%;
+  max-width: 800px;
+  margin: 0px auto;
+}
+
+/* Style for the select box */
+.select-container {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+}
+
+select {
+  -webkit-appearance: none; /* Remove default styling in webkit browsers */
+  -moz-appearance: none; /* Remove default styling in Firefox */
+  appearance: none; /* Remove default styling in modern browsers */
+  padding: 4px 8px;
+  font-size: 16px;
+  color: #333;
+  background-color: white;
+  border: 1px solid rgb(118, 118, 118);
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+select:focus {
+  border-color: #333;
+  background-color: #eaf3ff;
+}
+
+select option {
+  padding: 10px;
+  background-color: white;
+}
+
+/* Adding custom arrow for select box */
+.select-container::after {
+  content: '\27BD'; /* Down arrow */
+  font-size: 18px;
+  color: #aaa;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Style for the container */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Style for the label */
+.checkbox-label {
+  font-size: 16px;
+  color: #333;
+  padding: 0;
+  margin: 0;
+  margin-left: 10px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Style for the checkbox */
+.checkbox-input {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cfb42f;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 10px;
+}
+
+/* Style for each expense item */
+.expense-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Styling for the expense details */
+.expense-details {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style for date */
+.expense-date {
+  font-style: italic;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* Style for the title */
+.expense-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 5px 15px;
+}
+
+/* Style for category */
+.expense-category {
+  font-size: 14px;
+  color: #777;
+  margin: 0;
+  margin-bottom: 5px;
+  margin: 0 0 5px 15px;
+}
+
+/* Style for the amount */
+.expense-amount {
+  font-size: 16px;
+  font-weight: bold;
+  color: #3e3434;
+}
+
+/* Styling for the action buttons */
+.expense-actions {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style for delete button */
+.btn-delete {
+  background-color: #a11a1a;
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-delete:hover {
+  background-color: #e63946;
+}
+
+/* Style for edit button */
+.btn-edit {
+  background-color: #3e3434;
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-edit:hover {
+  background-color: #ffba00;
+}
